@@ -1,0 +1,111 @@
+$dark: #000000;
+$darkbg: #333;
+$white: #ffffff;
+
+.App {
+    text-align: center;
+}
+
+.Contact{
+    text-align: center;
+}
+
+body {
+    background-color: $white;
+    color: $dark;
+}
+
+.nav-link:hover {
+    color: rgb(0, 34, 144)(0, 60, 255);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    /* Change this to your desired dark background color */
+    color: $white;
+    /* Change this to your desired dark text color */
+}
+
+/* Add styles for other elements in both light and dark modes as needed */
+/* For example, update the header background color */
+header {
+    background-color: #343a40;
+    /* Change this to your desired header background color */
+}
+
+.dark-mode {
+    background-color: $darkbg;
+    color: #fff;
+}
+
+.dark-mode a {
+    color: #55a1ff;
+}
+
+.dark-mode .card-header {
+    background-color: $darkbg;
+    color: $white !important;
+    /* Set the text color to white in dark mode */
+}
+
+
+.dark-mode .card-body {
+    color: $white !important;
+    /* Set the text color to white in dark mode */
+    background-color: $darkbg;
+}
+
+.dark-mode .card {
+    background-color: $darkbg;
+}
+
+.dark-mode .card-header {
+    background-color: $darkbg;
+}
+
+.dark-mode .modal-header {
+    color: $white !important;
+    /* Set the text color to white in dark mode */
+    background-color: $darkbg;
+}
+
+.dark-mode .modal-content {
+    background-color: $darkbg; /* Dark background color */
+    color: $white; /* Light text color */
+    /* Add more styles as needed */
+}
+
+.dark-mode .modal-body {
+    color: $white !important;
+    /* Set the text color to white in dark mode */
+    background-color: $darkbg;
+}
+
+
+
+
+
+
+.dark-mode .list-group-item {
+    background-color: #161616;
+}
+
+
+
+.navbar {
+    background-color: $white; /* Light background color */
+    color: $dark; /* Light text color */
+}
+
+/* Dark mode styles */
+.dark-mode .navbar {
+    background-color: #343a40; /* Dark background color */
+    color: #ffffff; /* Dark text color */
+}
+
+.shorter-button {
+    height: 25px; /* Adjust the height as needed */
+    display: flex;
+    align-items: center;
+}
