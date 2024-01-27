@@ -131,7 +131,7 @@ const Adminproducts = () => {
                         {allproducts.map((prod, index) => (
                             <div key={index} className="col-md-4" style={{ padding: "15px", flex: "1 0 300px" }}>
                                 <div className="card" style={{ height: "100%" }}>
-                                    <img style={{ width: "150px", height: "150px" }} className="img-fluid card-img-top" src={`${TargetServer}${prod.img}`} alt="Product"></img>
+                                    <img style={{ width: "150px", height: "150px" }} className="img-fluid card-img-top" src={`${TargetServer}static${prod.img}`} alt="Product"></img>
                                     <div className="card-body" style={{ display: "flex", flexDirection: "column" }}>
                                         <div>
                                             <h5 className="card-title">{prod.name}</h5>

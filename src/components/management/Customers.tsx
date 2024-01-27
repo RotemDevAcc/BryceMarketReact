@@ -63,7 +63,7 @@ const Customers = () => {
             </div>
         const editlist = (<div key={"edit"}>
             <br />
-            <img src={`${TargetServer}${user.img}`} width={"50px"} height={"50px"} style={{ borderRadius: "15px" }} alt='User Avatar'></img><br />
+            <img src={`${TargetServer}static${user.img}`} width={"50px"} height={"50px"} style={{ borderRadius: "15px" }} alt='User Avatar'></img><br />
             <strong>Username:</strong> {user.username}<br />
             <strong>Email:</strong> {user.email}<br />
             <strong>Staff:</strong> {user.is_staff}<br />{staffbutton}
@@ -160,7 +160,7 @@ const Customers = () => {
             const userlisted = filteredData.map((customer, index) => (
                 <div key={index} className="card mb-3">
                     <div className="card-body">
-                        <img src={`${TargetServer}${customer.img}`} width={"50px"} height={"50px"} style={{ borderRadius: "15px" }} alt='User Avatar'></img>
+                        <img src={`${TargetServer}static${customer.img}`} width={"50px"} height={"50px"} style={{ borderRadius: "15px" }} alt='User Avatar'></img>
                         <h5 className="card-title">{customer.id} - {customer.username}</h5>
                         <p className="card-text">{customer.email}</p>
                         <p className="card-text">{customer.firstname || "John"} {customer.lastname || "Doe"}</p>
