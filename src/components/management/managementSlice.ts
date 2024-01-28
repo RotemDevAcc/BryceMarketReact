@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addAdminCategory, removeAdminCategory, addAdminProducts, admin_getallreceipts, admin_getuserreceipts, admin_removeuser, editAdminProducts, editAdminStaff, getAllCustomers, getAllProducts, removeAdminProducts } from './managementAPI';
+import { addAdminCategory, removeAdminCategory, addAdminProducts, admin_getallreceipts, admin_getuserreceipts, admin_removeuser, editAdminProducts, editAdminStaff, getAllCustomers, getAllProducts, removeAdminProducts, addAdminCoupon } from './managementAPI';
 import { Message } from '../../Message';
 
 
@@ -128,6 +128,15 @@ export const removeAdminProductsAsync = createAsyncThunk(
     }
 );
 // End Products
+
+// Coupon
+export const addAdminCouponAsync = createAsyncThunk(
+    'management/addAdminCoupon',
+    async (details: { formData: FormData, token: string }) => {
+        const response = await addAdminCoupon(details);
+        return response.data;
+    }
+);
 
 // Customers
 export const getAdminCustomersAsync = createAsyncThunk(
@@ -316,6 +325,18 @@ export const managementSlice = createSlice({
                     state.status = 'done'
                 } else {
                     state.status = 'failed'
+                }
+            })
+
+            // Coupon
+            .addCase(addAdminCouponAsync.fulfilled, (state, action) => {
+                const payload = action.payload
+                if (payload) {
+                    if (payload.success) {
+                        Message(payload.message, "success")
+                    }else{
+                        Message(payload.message, "error")
+                    }
                 }
             })
 

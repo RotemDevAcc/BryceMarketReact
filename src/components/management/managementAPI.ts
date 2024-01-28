@@ -121,6 +121,30 @@ export async function removeAdminProducts(details:{productid:number, token:strin
 }
 // End Products
 
+// Coupon
+export async function addAdminCoupon(details:{formData:FormData, token:string}) {
+
+    const token = details.token
+    if(!token || token === ""){
+        return {data:{state:"error","message":"User not found, Relog and try Again."}}
+    }
+    return axios.post(`${TargetServer}cmanagement/`,details.formData,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+    .then(response => {
+        return response;
+    })
+    .catch(error => {
+        console.error('Error while sending data to the server:', error);
+        Message(error.response.data.detail,"error")
+        throw error;
+    });
+}
+
+
 // Customers
 export function getAllCustomers(token:string) {
     if(!token || token === ""){

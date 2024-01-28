@@ -28,7 +28,7 @@ const Cart = () => {
 
     const show_dialog = async () => {
         let price = totalPrice
-        if(VerifiedCoupon && VerifiedCoupon.percent){
+        if (VerifiedCoupon && VerifiedCoupon.percent) {
             price = Number((totalPrice - (VerifiedCoupon.percent / 100) * totalPrice).toFixed(2))
         }
         const confirmationMessage = `Are you sure you want to purchase all the items for $${price}?`;
@@ -41,20 +41,20 @@ const Cart = () => {
     }
 
     const VerifyCoupon = () => {
-        if(!Coupon || Coupon === ""){
-            Message("You need to enter a coupon code","error")
+        if (!Coupon || Coupon === "") {
+            Message("You need to enter a coupon code", "error")
             return
         }
-        dispatch(getCouponAsync({token:token,coupon:Coupon}));
+        dispatch(getCouponAsync({ token: token, coupon: Coupon }));
         handleCancel()
-    }    
+    }
 
     return (
         <div>
             <div className="card">
                 <div className="card-header">
                     Shopping Cart{' '}
-                    <FontAwesomeIcon icon={faShoppingCart}/>
+                    <FontAwesomeIcon icon={faShoppingCart} />
                 </div>
                 <ul className="list-group list-group-flush" id="cart-items">
                     {myCart.map((prod, index) => (
@@ -74,50 +74,88 @@ const Cart = () => {
                         Checkout{' '}
                         <FontAwesomeIcon icon={faCashRegister} />
                     </button>
-                    
+
                     <button className="btn btn-danger" onClick={() => dispatch(clearCart())}>
                         Clear Cart{' '}
                         <FontAwesomeIcon icon={faBroom} />
                     </button>
-                    
-                    
-                    {VerifiedCoupon.percent ? <>
-                    <h4>Current Coupon: {VerifiedCoupon.percent}%</h4>
-                    {totalPrice > 0 ? <h4>Price With Coupon: {(totalPrice - (VerifiedCoupon.percent / 100) * totalPrice).toFixed(2) }</h4> : <></>}
-                    
-                    <button className='btn btn-danger' onClick={()=>dispatch(clearCoupon())} style={{margin: 5}}>Remove Coupon</button> 
-                    </>
-                    : 
-                    <button className="btn btn-primary" onClick={() => setShowModal(Modals.coupon)} style={{ margin: 5 }}>
-                        Coupon Code{' '}
-                        <FontAwesomeIcon icon={faTicket} />
-                    </button>}
-                    
+
+
+                    {
+                        VerifiedCoupon.percent ? (
+                            <>
+                                <h4>Current Coupon: {VerifiedCoupon.percent}%</h4>
+                                {totalPrice > 0 ? (
+                                    <>
+                                        <h4>Price With Coupon: ${(totalPrice - (VerifiedCoupon.percent / 100) * totalPrice).toFixed(2)}</h4>
+                                        {totalPrice < VerifiedCoupon.min_price && (
+                                            <p style={{ color: '#FF0000' }}>
+                                                Minimum price to use this coupon is ${VerifiedCoupon.min_price}.
+                                            </p>
+                                        )}
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+
+                                <button className='btn btn-danger' onClick={() => dispatch(clearCoupon())} style={{ margin: 5 }}>
+                                    Remove Coupon
+                                </button>
+                            </>
+                        ) : (
+                            <button className="btn btn-primary" onClick={() => setShowModal(Modals.coupon)} style={{ margin: 5 }}>
+                                Coupon Code{' '}
+                                <FontAwesomeIcon icon={faTicket} />
+                            </button>
+                        )
+                    }
+
+
 
 
                 </div>
             </div>
 
-            <Modal show={showModal === Modals.purchase} onHide={()=>Modals.hide}>
+            <Modal show={showModal === Modals.purchase} onHide={() => Modals.hide}>
                 <Modal.Header>
                     <Modal.Title>Confirmation</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{modalmessage}</Modal.Body>
                 <Modal.Footer>
-                    {totalPrice > 0.0 ? <Paypal price={VerifiedCoupon && VerifiedCoupon.percent ? Number((totalPrice - (VerifiedCoupon.percent / 100) * totalPrice).toFixed(2)) : totalPrice}></Paypal> : <>No Products Selected</>}
+                    {
+                        // Check if VerifiedCoupon exists and if totalPrice meets the minimum price requirement
+                        (!VerifiedCoupon || totalPrice >= VerifiedCoupon.min_price) ? (
+                            // Render Paypal component if totalPrice is greater than 0
+                            totalPrice > 0.0 ? (
+                                <Paypal
+                                    price={VerifiedCoupon?.percent
+                                        ? Number((totalPrice - (VerifiedCoupon.percent / 100) * totalPrice).toFixed(2))
+                                        : totalPrice}
+                                />
+                            ) : (
+                                // Display a message if no products are selected
+                                <>No Products Selected</>
+                            )
+                        ) : (
+                            // Display a message if VerifiedCoupon exists but the minimum price requirement is not met
+                            <p>Minimum price requirement for coupon not met. Required: ${VerifiedCoupon.min_price}</p>
+                        )
+                    }
+
                     <Button variant="secondary" onClick={handleCancel}>
                         Cancel
                     </Button>
+
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={showModal === Modals.coupon} onHide={()=>Modals.hide}>
+            <Modal show={showModal === Modals.coupon} onHide={() => Modals.hide}>
                 <Modal.Header>
                     <Modal.Title>Enter A Coupon Code</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{modalmessage}
-                    <input className="form-control" type="text" id="CouponForm" name="coupon" value={Coupon} onChange={(e)=>setCoupon(e.target.value)} required />
-                    <br/>
+                    <input className="form-control" type="text" id="CouponForm" name="coupon" value={Coupon} onChange={(e) => setCoupon(e.target.value)} required />
+                    <br />
                     <Button variant="primary" onClick={VerifyCoupon}>
                         Enter
                     </Button>{' '}
