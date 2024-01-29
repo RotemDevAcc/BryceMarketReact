@@ -24,6 +24,7 @@ import Receipts from './components/management/Receipts';
 import Customers from './components/management/Customers';
 import PasswordResetRequestForm from './components/passwordreset/PasswordResetRequestForm';
 import PasswordResetForm from './components/passwordreset/PasswordResetForm';
+import AdminContacts from './components/management/AdminContacts';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -51,6 +52,7 @@ root.render(
               <Route path="admin" element={<Adminhome />} />
               <Route path="allproducts" element={<Adminproducts />} />
               <Route path="receipts" element={<Receipts />} />
+              <Route path="admincontacts" element={<AdminContacts />} />
               <Route path="customers" element={<Customers />} />
             </Route>
           </Routes>

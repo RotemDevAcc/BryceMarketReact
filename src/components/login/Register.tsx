@@ -152,7 +152,7 @@ const Register = () => {
                             <label htmlFor="dob">
                                 <FontAwesomeIcon icon={faCalendarAlt} /> Birthdate:
                             </label>
-                            <input type="date" className="form-control" name="dob" required onChange={handleInputChange} value="2000-01-01" />
+                            <input type="date" className="form-control" name="dob" required onChange={handleInputChange} value="2000-01-01" min="1948-01-01" max="2024-12-31" />
                         </div>
 
                         <div className="form-group">

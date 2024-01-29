@@ -1,5 +1,5 @@
 // Layout.js
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { is_user_logged, user_logout, is_user_staff, get_user_details } from './components/login/loginSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
@@ -17,7 +17,13 @@ const Layout = () => {
     const [NavBar, setNavBar] = useState<JSX.Element>()
 
 
-    const [imageSrc, setImageSrc] = useState(`${TargetServer}static/images/${myDetails.img || "placeholder.png"}`);
+    const [imageSrc, setImageSrc] = useState(`${TargetServer}static/images/${myDetails.img}`);
+
+    useEffect(() => {
+        setImageSrc(`${TargetServer}static/images/${myDetails.img}`)
+    }, [myDetails])
+    
+
     const placeholderImg = `${TargetServer}static/images/placeholder.png`;
 
     const handleImageError = () => {
@@ -28,13 +34,15 @@ const Layout = () => {
         '/': 'Home',
         '/super': 'Products',
         '/contact': 'Contact',
+        '/register': 'Register',
         '/login': 'Login',
         '/profile': 'My Profile',
         // Staff Routes
         '/admin': 'Admin Home',
         '/customers': 'Customers',
         '/allproducts': 'All Products',
-        '/receipts': 'Show Receipts',
+        '/receipts': 'All Receipts',
+        '/admincontacts': 'Contact Messages'
         // Add more routes and headers as needed
     };
 
@@ -47,6 +55,7 @@ const Layout = () => {
             "/customers",
             "/allproducts",
             "/receipts",
+            "/admincontacts"
         ]
         const IsAdminPage = adminpages.includes(loc);
 
@@ -84,13 +93,13 @@ const Layout = () => {
                     </li>
                 </>
             )}
-            {isstaff ? 
+            {isstaff ?
                 <li className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}>
                     <NavLink to="/admin" className="nav-link">
                         Admin Home
                     </NavLink>
                 </li>
-            : <></>}
+                : <></>}
 
         </>
 
@@ -115,9 +124,15 @@ const Layout = () => {
                         </li>
                         <li className={`nav-item ${location.pathname === '/receipts' ? 'active' : ''}`}>
                             <NavLink to="/receipts" className="nav-link">
-                                Show Receipts
+                                All Receipts
                             </NavLink>
                         </li>
+                        <li className={`nav-item ${location.pathname === '/admincontacts' ? 'active' : ''}`}>
+                            <NavLink to="/admincontacts" className="nav-link">
+                                Contact Messages
+                            </NavLink>
+                        </li>
+
                     </>
                 ) : ""}
             </>
@@ -126,14 +141,33 @@ const Layout = () => {
 
         setNavBar(navbarlist)
 
-    }, [dispatch, isstaff, location.pathname,logged])
+    }, [dispatch, isstaff, location.pathname, logged])
 
 
     const headerText = routeHeaders[location.pathname] || '';
     return (
         <div>
             <header className="bg-dark text-white">
-                {logged ? <img src={imageSrc} onError={handleImageError} alt="Profile Logo" className="navbar-brand img-fluid" height="40px" width="40px" style={{ borderRadius: "30px" }} /> : <></>}
+                {logged ?
+                    <img
+                        src={imageSrc}
+                        onError={handleImageError}
+                        alt="Profile Logo"
+                        className="navbar-brand img-fluid"
+                        height="50px"
+                        width="50px"
+                        style={{
+                            display: "block", // Added this line
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                            border: "2px solid white",
+                            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)"
+                        }}
+                    />
+                    : <></>
+                }
+
 
                 <div className="container">
                     <h1>{headerText}</h1>

@@ -135,6 +135,9 @@ const Profile = () => {
 
     }, [recommend])
 
+    useEffect(() => {
+        setImageSrc(`${TargetServer}static/images/${myDetails.img}`)
+    }, [myDetails])
 
     const handleNameFirstChange = (event: ChangeEvent<HTMLInputElement>) => {
         setfirstName(event.target.value || '')

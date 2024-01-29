@@ -109,3 +109,18 @@ header {
     display: flex;
     align-items: center;
 }
+
+.footer {
+    position: fixed; /* Set the position of the footer to fixed */
+    bottom: 0; /* Place the footer at the bottom of the viewport */
+    left: 0; /* Align the footer to the left side */
+    right: 0; /* Align the footer to the right side */
+    background-color: #333; /* Example background color for the footer */
+    color: #fff; /* Example text color for the footer */
+    padding: 10px; /* Add some padding to the footer for spacing */
+  }
+  
+  .contact-message {
+    word-wrap: break-word; /* Breaks the word at the end of the line */
+    max-width: 200px; /* Or any other suitable width */
+  }

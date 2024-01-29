@@ -123,30 +123,34 @@ const Adminproducts = () => {
     }, [dispatch, token])
 
     useEffect(() => {
-        if(status === "done" && allproducts && allproducts.length > 0){
+        if (status === "done" && allproducts && allproducts.length > 0) {
             let element =
-            <div className="container mt-4">
-                <ul className="list-group">
-                    <div className="row" style={{ display: "flex", flexWrap: "wrap" }}>
-                        {allproducts.map((prod, index) => (
-                            <div key={index} className="col-md-4" style={{ padding: "15px", flex: "1 0 300px" }}>
-                                <div className="card" style={{ height: "100%" }}>
-                                    <img style={{ width: "150px", height: "150px" }} className="img-fluid card-img-top" src={`${TargetServer}static${prod.img}`} alt="Product"></img>
-                                    <div className="card-body" style={{ display: "flex", flexDirection: "column" }}>
-                                        <div>
-                                            <h5 className="card-title">{prod.name}</h5>
-                                            <p className="card-text">Description: {prod.desc}</p>
-                                            <p className="card-text">Price: ${prod.price}</p>
-                                            <p className="card-text">Category: {prod.category} - {GetCategoryName(prod.category)}</p>
-                                            <button className="btn btn-sm btn-primary shorter-button" onClick={() => { manage_product(prod.id) }}><FontAwesomeIcon icon={faEdit} /> Manage</button>
+                <div className="container mt-4">
+                    <ul className="list-group">
+                        <div className="row" style={{ display: "flex", flexWrap: "wrap" }}>
+                            {allproducts.map((prod, index) => (
+                                <div key={index} className="col-md-4" style={{ padding: "15px", flex: "1 0 300px" }}>
+                                    <div className="card" style={{ height: "100%" }}>
+                                        <img style={{ width: "150px", height: "150px" }} className="img-fluid card-img-top" src={`${TargetServer}static${prod.img}`} alt="Product"></img>
+                                        <div className="card-body" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                                            <div>
+                                                <h5 className="card-title">{prod.name}</h5>
+                                                <p className="card-text">Description: {prod.desc}</p>
+                                                <p className="card-text">Price: ${prod.price}</p>
+                                                <p className="card-text">Category: {prod.category} - {GetCategoryName(prod.category)}</p>
+                                            </div>
+                                            <br/>
+                                            <button className="btn btn-sm btn-primary shorter-button" onClick={() => { manage_product(prod.id) }}>
+                                                <FontAwesomeIcon icon={faEdit} /> Manage
+                                            </button>
                                         </div>
+
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                </ul>
-            </div>
+                            ))}
+                        </div>
+                    </ul>
+                </div>
 
             setdisplayprods(element)
         }
@@ -201,11 +205,11 @@ const Adminproducts = () => {
     }
 
 
-    const handleCatAddSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
+    const handleCatAddSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if(!catdesc || catdesc === ""){
-            Message("You must specify a Category Description","error")
+        if (!catdesc || catdesc === "") {
+            Message("You must specify a Category Description", "error")
             return
         }
 
@@ -221,13 +225,13 @@ const Adminproducts = () => {
         setshowModal(AdminModalTypes.REMOVE_CATEGORY)
     }
 
-    const handleRemoveCatSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
+    const handleRemoveCatSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const category = removecat
         let formData = new FormData();
         formData.append('type', 'delcategory');
         formData.append('categoryid', category.toString());
-        dispatch(removeAdminCategoryAsync({formData,token: token}))
+        dispatch(removeAdminCategoryAsync({ formData, token: token }))
     }
 
     const categoryOptions = allcategories && allcategories.map((cat) => (
@@ -427,7 +431,7 @@ const Adminproducts = () => {
                             id="addCatDesc"
                             name="desc"
                             value={catdesc}
-                            onChange={(e)=>setcatdesc(e.target.value)}
+                            onChange={(e) => setcatdesc(e.target.value)}
                             required
                         />
                         <br />
@@ -453,7 +457,7 @@ const Adminproducts = () => {
                             required
                             id="remove_category"
                             value={removecat}
-                            onChange={(e)=>setremovecat(Number(e.target.value))}
+                            onChange={(e) => setremovecat(Number(e.target.value))}
                         >
                             <option value="">
                                 ---------
@@ -466,9 +470,9 @@ const Adminproducts = () => {
                             Remove Category
                         </button>
                     </form>
-                    
+
                 </Modal.Body>
-                <Button variant="danger" onClick={()=>close_productmodal()}>
+                <Button variant="danger" onClick={() => close_productmodal()}>
                     Close
                 </Button>
             </Modal>
