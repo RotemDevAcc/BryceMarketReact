@@ -6,7 +6,7 @@ const Contact = () => {
         <h2>Contact Information</h2>
         <p>If you have any questions or need assistance, feel free to contact us.</p>
         <address>
-            Email: <a href="mailto:contact@yourmarket.com">contact@yourmarket.com</a><br/>
+            Email: <a href="mailto:contact@brycemarket.com">contact@brycemarket.com</a><br/>
             Phone: +1-123-456-7890<br/>
             Address: 123 Supermarket St, Cityville, USA
         </address>

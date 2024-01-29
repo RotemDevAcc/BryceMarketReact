@@ -235,7 +235,7 @@ const Adminproducts = () => {
     ));
 
     return (
-        <div>
+        <div style={{ textAlign: 'center' }}>
             {status === "done" ? (
                 <div>
                     <div className="text-center mt-3">
@@ -246,7 +246,7 @@ const Adminproducts = () => {
 
                     {displayprods}
                 </div>
-            ) : <></>}
+            ) : <h2 style={{ margin: 'auto' }}>Products Not Loaded Yet.</h2>}
             <Modal show={showModal === AdminModalTypes.VIEW_PRODUCT && currentProduct !== null} onHide={() => close_productmodal()}>
                 {currentProduct && (
                     <Modal.Header>

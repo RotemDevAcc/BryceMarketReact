@@ -42,7 +42,7 @@ const Receipts = () => {
           <strong>PayPal Order ID:</strong> {receipt.orderid || "No OrderID"}<br />
           <strong>User:</strong> {receipt.recuser.username} <span style={{ color: "#008000" }}>[{receipt.recuser.userid}]</span><br />
           <strong>Price:</strong> ${receipt.price}<br />
-          {receipt.discount && receipt.discount > 0 ? <><strong>Discount:</strong> {receipt.discount}%<br/></> : <></>}
+          {receipt.discount && receipt.discount > 0 ? <><strong>Discount:</strong> {receipt.discount}%<br /></> : <></>}
           <strong>Products:</strong>
           <ul>
             {formatProducts(receipt.products)}
@@ -63,14 +63,18 @@ const Receipts = () => {
 
 
   return (
-    <div>
-      {ShowReceipts ?
+    <div style={{ textAlign: 'center' }}>
+      {ShowReceipts ? (
         <div className='container mt-4'>
           <ul className='list-group'>
             {receiptsbody}
           </ul>
-        </div> : <>Receipts Not Loaded Yet.</>}
+        </div>
+      ) : (
+        <h2 style={{ margin: 'auto' }}>Receipts Not Loaded Yet.</h2>
+      )}
     </div>
+
   )
 }
 
