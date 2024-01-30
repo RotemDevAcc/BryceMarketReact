@@ -85,3 +85,9 @@ BryceMarket is a secure supermarket app that provides a convenient shopping expe
     Start The App
     ```bash
     npm start
+4. 
+    Set Your Server URL
+    navigate to marketapp\src\components\settings>
+    Change TargetServer
+    ```bash
+    export const TargetServer = "http://127.0.0.1:8000/"
