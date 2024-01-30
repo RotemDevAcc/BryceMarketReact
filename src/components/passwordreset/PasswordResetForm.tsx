@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { TargetServer } from '../settings/settings';
 
 function PasswordResetForm() {
   const [newPassword, setNewPassword] = useState('');
@@ -11,7 +12,7 @@ function PasswordResetForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/password_reset_confirm/', {
+      const response = await axios.post(`${TargetServer}/password_reset_confirm/`, {
         userId,
         token,
         newPassword

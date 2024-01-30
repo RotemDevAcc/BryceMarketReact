@@ -49,6 +49,7 @@ To learn React, check out the [React documentation](https://reactjs.org/). -->
 # BryceMarket - Secure Supermarket App
 
 BryceMarket is a secure supermarket app that provides a convenient shopping experience for customers. It includes features such as secure payments through PayPal, an admin panel for managing products and categories, user management, receipt tracking, product reviews, and a contact messaging system.
+the app is styled using Bootstrap.
 
 ## Features
 
