@@ -45,12 +45,21 @@ Bryce Market uses Bootstrap to enhance the user interface, ensuring that your we
     cd marketapp
     npm install
 3. 
-    Start The App
-    ```bash
-    npm start
-4. 
     Set Your Server URL
     navigate to marketapp\src\components\settings>
     Change TargetServer
     ```bash
     export const TargetServer = "http://127.0.0.1:8000/"
+4. 
+    Start The App
+    ```bash
+    npm start
+5.  
+    ```bash
+    Navigate to the login page
+    and access the admin user
+    username: admin
+    password: admin
+    ```
+
+    
