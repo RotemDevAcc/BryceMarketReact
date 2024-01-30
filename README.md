@@ -75,4 +75,4 @@ BryceMarket is a secure supermarket app that provides a convenient shopping expe
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/RotemDevAcc/BryceMarketReact.git
