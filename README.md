@@ -76,3 +76,12 @@ BryceMarket is a secure supermarket app that provides a convenient shopping expe
 
    ```bash
    git clone https://github.com/RotemDevAcc/BryceMarketReact.git
+2. 
+    Install dependencies:
+    ```bash
+    cd marketapp
+    npm install
+3. 
+    Start The App
+    ```bash
+    npm start
