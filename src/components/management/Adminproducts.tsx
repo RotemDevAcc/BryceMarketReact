@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { addAdminCategoryAsync, addAdminProductsAsync, editAdminProductsAsync, getAdminProductsAsync, get_admin_categories, get_admin_products, removeAdminCategoryAsync, removeAdminProductsAsync, selectastatus, updateStatus } from './managementSlice'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { get_user_token } from '../login/loginSlice';
-import { TargetServer } from '../settings/settings';
+import { get_user_token, is_user_logged, user_force_logout } from '../login/loginSlice';
+import { TargetServer, isTokenExpired } from '../settings/settings';
 import { Message } from '../../Message';
 import { Button, Modal } from 'react-bootstrap';
 import { AllProductDetails } from './managementSlice';
@@ -26,6 +26,7 @@ const Adminproducts = () => {
     const allproducts = useAppSelector(get_admin_products)
     const allcategories = useAppSelector(get_admin_categories)
     const token = useAppSelector(get_user_token)
+    const islogged = useAppSelector(is_user_logged)
     const [displayprods, setdisplayprods] = useState<JSX.Element | string>('');
     const [showModal, setshowModal] = useState(AdminModalTypes.Clear)
     const [currentProduct, setCurrentProduct] = useState<AllProductDetails | null>();
@@ -115,6 +116,14 @@ const Adminproducts = () => {
         }
 
     };
+
+    useEffect(() => {
+        if(islogged && isTokenExpired(token)){
+          dispatch(user_force_logout());
+        }
+      
+    
+      }, [islogged, token, dispatch])
 
 
     useEffect(() => {

@@ -75,7 +75,7 @@ const Contact = () => {
         </address>
       </section>
 
-      {logged && (
+      {logged ? (
         <section className="container mt-4">
           <h3>Or Simply send us a message</h3>
           <h2>Message Form</h2>
@@ -93,7 +93,7 @@ const Contact = () => {
             Send
           </button>
         </section>
-      )}
+      ) : (<><h3 style={{color: "#FF0000"}}> You can only send contact messages after logging in</h3></>)}
     </div>
   );
 };

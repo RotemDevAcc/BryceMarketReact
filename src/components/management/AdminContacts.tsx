@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { get_user_token, is_user_logged } from '../login/loginSlice';
-import { useAppSelector } from '../../app/hooks';
-import { TargetServer } from '../settings/settings';
+import { get_user_token, is_user_logged, user_force_logout } from '../login/loginSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { TargetServer, isTokenExpired } from '../settings/settings';
 import { selectDarkMode } from '../settings/darkModeSlice';
 
 interface Contact {
@@ -14,11 +14,20 @@ interface Contact {
 }
 
 const AdminContacts: React.FC = () => {
+  const dispatch = useAppDispatch()
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
   const token = useAppSelector(get_user_token);
   const logged = useAppSelector(is_user_logged);
   const isDarkMode = useAppSelector(selectDarkMode);
+
+  useEffect(() => {
+    if(logged && isTokenExpired(token)){
+      dispatch(user_force_logout());
+    }
+  
+
+  }, [logged, token, dispatch])
 
   useEffect(() => {
     if(!logged) return;
@@ -69,7 +78,7 @@ const AdminContacts: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {contacts.map((contact) => (
+            {contacts && contacts.length > 0 ? contacts.map((contact) => (
               <tr key={contact.id}>
                 <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{contact.name}</td>
                 <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{contact.email}</td>
@@ -78,7 +87,16 @@ const AdminContacts: React.FC = () => {
                   <Button variant="danger" onClick={() => deleteContact(contact.id)}>X</Button>
                 </td>
               </tr>
-            ))}
+            )) : <>
+            <tr key = {"nocontacts"}>
+              <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{"No Contacts Available"}</td>
+              <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{"X"}</td>
+              <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{"X"}</td>
+              <td className={`text-${isDarkMode ? 'white' : 'dark'}`}>{"X"}</td>
+
+            </tr>
+            
+            </>}
           </tbody>
         </Table>
       )}

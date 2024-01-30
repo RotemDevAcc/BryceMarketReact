@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { get_login_status, is_user_logged, loginAsync } from './loginSlice';
+import { get_login_status, is_user_logged, loginAsync, reset_loginstatus } from './loginSlice';
 import { Message } from '../../Message';
 
 
@@ -37,7 +37,12 @@ const Login = () => {
     if (logged) {
       navigate('/');
     }
-  }, [logged, navigate]);
+
+    
+    return () =>{
+      dispatch(reset_loginstatus())
+    }
+  }, [logged, navigate, dispatch]);
 
   const buttontypes:any = {
     "pending":"warning",

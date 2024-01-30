@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TargetServer } from '../settings/settings';
+import { Link } from 'react-router-dom';
 
 function PasswordResetRequestForm() {
     const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ function PasswordResetRequestForm() {
                     </div>
                     <button type="submit" className="btn btn-primary btn-block">Send Reset Link</button>
                 </form>
+                <p className="mt-3 text-center">already have an account? <Link to="/login">Login</Link></p>
                 {message && <div className="alert alert-success mt-3">{message}</div>}
             </div>
         </div>

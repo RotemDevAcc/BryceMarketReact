@@ -4,6 +4,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { is_user_logged, user_logout, is_user_staff, get_user_details } from './components/login/loginSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { TargetServer } from './components/settings/settings';
+import { selectDarkMode } from './components/settings/darkModeSlice';
 
 
 
@@ -15,6 +16,7 @@ const Layout = () => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [NavBar, setNavBar] = useState<JSX.Element>()
+    const isDarkMode = useAppSelector(selectDarkMode);
 
 
     const [imageSrc, setImageSrc] = useState(`${TargetServer}static/images/${myDetails.img}`);
@@ -32,10 +34,10 @@ const Layout = () => {
 
     const routeHeaders: Record<string, string> = {
         '/': 'Home',
-        '/super': 'Products',
-        '/contact': 'Contact',
-        '/register': 'Register',
-        '/login': 'Login',
+        '/super': 'Supermarket Products',
+        '/contact': 'Contact Us',
+        '/register': 'Register Page',
+        '/login': 'Login Page',
         '/profile': 'My Profile',
         // Staff Routes
         '/admin': 'Admin Home',
@@ -84,7 +86,7 @@ const Layout = () => {
             ) : (
                 <>
                     <li className="nav-item">
-                        <span className="nav-link" onClick={() => { dispatch(user_logout()) }} style={{ cursor: "pointer", color: "#007bff" }} >Logout</span>
+                        <span className="nav-link" onClick={() => { dispatch(user_logout()) }} style={{ cursor: "pointer", color: isDarkMode ? "#55a1ff" : "#007bff" }} >Logout</span>
                     </li>
                     <li className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}>
                         <NavLink to="/profile" className="nav-link">
@@ -141,7 +143,7 @@ const Layout = () => {
 
         setNavBar(navbarlist)
 
-    }, [dispatch, isstaff, location.pathname, logged])
+    }, [dispatch, isstaff, location.pathname, logged, isDarkMode])
 
 
     const headerText = routeHeaders[location.pathname] || '';

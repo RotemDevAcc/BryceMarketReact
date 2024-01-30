@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { get_user_token } from '../login/loginSlice'
+import { get_user_token, is_user_logged, user_force_logout } from '../login/loginSlice'
 import { AdmingetUserReceiptsAsync, AdminremoveUserAsync, addAdminCouponAsync, editAdminStaffAsync, getAdminCustomersAsync, get_admin_customers, get_admin_products, get_admin_receipts, selectastatus } from './managementSlice'
 import { faBox, faDollarSign, faEdit, faReceipt, faRemove, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { TargetServer, numberWithCommas } from '../settings/settings'
+import { TargetServer, isTokenExpired, numberWithCommas } from '../settings/settings'
 import { Message } from '../../Message'
 import { Button, Modal } from 'react-bootstrap'
 
@@ -20,6 +20,7 @@ const Customers = () => {
 
     const dispatch = useAppDispatch()
     const token = useAppSelector(get_user_token)
+    const islogged = useAppSelector(is_user_logged)
     const customers = useAppSelector(get_admin_customers)
     const selectedreceipts = useAppSelector(get_admin_receipts)
     const allproducts = useAppSelector(get_admin_products)
@@ -196,7 +197,13 @@ const Customers = () => {
 
 
 
-
+    useEffect(() => {
+        if(islogged && isTokenExpired(token)){
+          dispatch(user_force_logout());
+        }
+      
+    
+      }, [islogged, token, dispatch])
 
     useEffect(() => {
         if (status === "done") {

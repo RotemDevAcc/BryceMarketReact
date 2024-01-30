@@ -106,8 +106,16 @@ export const loginSlice = createSlice({
       sessionStorage.removeItem("userDetails")
       Message("Logged out Successfully", "success")
     },
+    user_force_logout: (state) => {
+      state.loggedin = false
+      state.userDetails = {} as UserDetails;
+      sessionStorage.removeItem("userDetails")
+    },
     reset_userreceipts: (state) => {
       state.userreceipts= {id:0, price:0, products:[]}
+    },
+    reset_loginstatus: (state) => {
+      state.status =""
     }
   },
   extraReducers: (builder) => {
@@ -204,7 +212,7 @@ function parseJwt(token: string) {
   return JSON.parse(jsonPayload);
 }
 
-export const { user_logout, reset_userreceipts } = loginSlice.actions;
+export const { user_logout, user_force_logout, reset_userreceipts, reset_loginstatus } = loginSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

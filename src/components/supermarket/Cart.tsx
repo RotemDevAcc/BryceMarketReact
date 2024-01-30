@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { clearCart, removeProduct, selectCart, selectPrice } from './cartSlice'
 import { Modal, Button } from 'react-bootstrap';
-import { get_user_token } from '../login/loginSlice';
+import { get_user_token, is_user_logged } from '../login/loginSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faCashRegister, faShoppingCart, faTicket } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,7 @@ const Modals = {
 const Cart = () => {
     const dispatch = useAppDispatch();
     const myCart = useAppSelector(selectCart)
+    const islogged = useAppSelector(is_user_logged)
     const token = useAppSelector(get_user_token);
     const totalPrice = useAppSelector(selectPrice);
     const VerifiedCoupon = useAppSelector(selectcoupon);
@@ -122,10 +123,12 @@ const Cart = () => {
                 </Modal.Header>
                 <Modal.Body>{modalmessage}</Modal.Body>
                 <Modal.Footer>
-                    {
-                        // Check if VerifiedCoupon exists and if totalPrice meets the minimum price requirement
+                    {/* Check if the user is logged in */}
+                    {!islogged ? (
+                        <h2>You must be logged in to view this page</h2>
+                    ) : (
+                        // Existing conditional logic
                         (!VerifiedCoupon || totalPrice >= VerifiedCoupon.min_price) ? (
-                            // Render Paypal component if totalPrice is greater than 0
                             totalPrice > 0.0 ? (
                                 <Paypal
                                     price={VerifiedCoupon?.percent
@@ -133,19 +136,16 @@ const Cart = () => {
                                         : totalPrice}
                                 />
                             ) : (
-                                // Display a message if no products are selected
                                 <>No Products Selected</>
                             )
                         ) : (
-                            // Display a message if VerifiedCoupon exists but the minimum price requirement is not met
                             <p>Minimum price requirement for coupon not met. Required: ${VerifiedCoupon.min_price}</p>
                         )
-                    }
+                    )}
 
                     <Button variant="secondary" onClick={handleCancel}>
                         Cancel
                     </Button>
-
                 </Modal.Footer>
             </Modal>
 

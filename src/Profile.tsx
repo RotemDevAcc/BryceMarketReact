@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { selectDarkMode, toggleDarkMode } from './components/settings/darkModeSlice';
-import { changeFullNameAsync, changePicAsync, getClientReceiptsAsync, get_recipe_recommend, get_user_details, get_user_receipts, get_user_token, recommandProductsAsync, reset_userreceipts } from './components/login/loginSlice';
-import { TargetServer, numberWithCommas } from './components/settings/settings';
+import { changeFullNameAsync, changePicAsync, getClientReceiptsAsync, get_recipe_recommend, get_user_details, get_user_receipts, get_user_token, is_user_logged, recommandProductsAsync, reset_userreceipts, user_force_logout } from './components/login/loginSlice';
+import { TargetServer, isTokenExpired, numberWithCommas } from './components/settings/settings';
 import { Modal, Button } from 'react-bootstrap';
 import { Message } from './Message';
 import { useAppDispatch, useAppSelector } from './app/hooks';
@@ -33,6 +33,7 @@ const Profile = () => {
     const myDetails = useAppSelector(get_user_details);
     const darkMode = useAppSelector(selectDarkMode);
     const token = useAppSelector(get_user_token)
+    const islogged = useAppSelector(is_user_logged)
     const userReceipts = useAppSelector(get_user_receipts)
     const recommend = useAppSelector(get_recipe_recommend)
     const superproducts = useAppSelector(selectproducts)
@@ -82,6 +83,12 @@ const Profile = () => {
         }
         
     },[token,userReceipts,dispatch]);
+
+    useEffect(() => {
+        if(islogged && isTokenExpired(token)){
+          dispatch(user_force_logout());
+        }
+      }, [islogged, token, dispatch])
 
     useEffect(() => {
         if (status === "done" && superproducts?.length > 0) {

@@ -14,6 +14,7 @@ const Register = () => {
     const dispatch = useAppDispatch();
     const logged = useAppSelector(is_user_logged);
     const status = useAppSelector(register_status)
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
@@ -45,14 +46,14 @@ const Register = () => {
         });
     };
 
-    
+
     useEffect(() => {
         return () => {
             resetForm();
             dispatch(reset_status())
         };
     }, [dispatch])
-    
+
 
     useEffect(() => {
         if (logged || status === "move") {
@@ -71,6 +72,8 @@ const Register = () => {
         const confirm_password = formData.confirm_password
         const gender = formData.gender
         const date = formData.dob
+        
+        const passwordPattern = /^(?=.*[!@#$%^&*])(?=.*\d).{10,}$/;
         if (!uservalue) {
             Message("Username was not entered", "error")
             return
@@ -88,6 +91,11 @@ const Register = () => {
         if (!passvalue) {
             Message("Password was not entered", "error")
             return
+        }
+
+        if (!passwordPattern.test(passvalue)) {
+            Message("Password must contain at least one special character, one number, and be at least 10 characters long", "error");
+            return;
         }
 
         if (!confirm_password) {
@@ -171,7 +179,24 @@ const Register = () => {
                             <label htmlFor="password">
                                 <FontAwesomeIcon icon={faLock} /> Password:
                             </label>
-                            <input type="password" className="form-control" name="password" onChange={handleInputChange} required />
+                            <div className="input-group">
+                                <input
+                                    type={showPassword ? 'text' : 'password'} // Toggle input type based on showPassword state
+                                    className="form-control"
+                                    name="password"
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <div className="input-group-append">
+                                    <button
+                                        className="btn btn-outline-secondary"
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                                    >
+                                        {showPassword ? 'Hide' : 'Show'} {/* Change button label */}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="form-group">

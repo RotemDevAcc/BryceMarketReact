@@ -108,6 +108,10 @@ header {
   padding: 10px; /* Add some padding to the footer for spacing */
 }
 
+.content {
+  padding-bottom: 60px; /* Adjust this value as needed */
+}
+
 .contact-message {
   word-wrap: break-word; /* Breaks the word at the end of the line */
   max-width: 200px; /* Or any other suitable width */

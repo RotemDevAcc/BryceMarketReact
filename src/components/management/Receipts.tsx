@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { get_user_token } from '../login/loginSlice';
+import { get_user_token, is_user_logged, user_force_logout } from '../login/loginSlice';
 import { AdmingetAllReceiptsAsync, get_admin_products, get_admin_allreceipts } from './managementSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBox, faDollarSign, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { isTokenExpired } from '../settings/settings';
 
 const Receipts = () => {
 
   const dispatch = useAppDispatch();
   const token = useAppSelector(get_user_token)
+  const islogged = useAppSelector(is_user_logged)
   const allproducts = useAppSelector(get_admin_products)
   const allreceipts = useAppSelector(get_admin_allreceipts)
   const [ShowReceipts, setShowReceipts] = useState(false)
@@ -33,6 +35,15 @@ const Receipts = () => {
     ));
     return productItems
   }, [GetProductName])
+
+
+  useEffect(() => {
+    if(islogged && isTokenExpired(token)){
+      dispatch(user_force_logout());
+    }
+  
+
+  }, [islogged, token, dispatch])
 
   useEffect(() => {
     if (allproducts?.length > 0 && allreceipts?.length > 0) {

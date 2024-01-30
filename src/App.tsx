@@ -33,7 +33,8 @@ function App() {
         <section className="container mt-4">
           <h2>Stay Updated</h2>
           <p>Sign up for our newsletter to get the latest news, exclusive offers, and more directly to your inbox.</p>
-          {!logged ? (
+        </section>
+        {!logged ? (
             <div>
               <h3 className={`nav-item active`}>
                 <NavLink to="/login" className="nav-link">
@@ -50,7 +51,6 @@ function App() {
           ) : (
             <></>
           )}
-        </section>
 
         <section className="container mt-4">
           <h2>Gallery</h2>
@@ -58,7 +58,7 @@ function App() {
           {/* Add image gallery or carousel here */}
         </section>
       </div>
-
+      
       <footer className="footer bg-dark text-white text-center py-3">
         <p>&copy; 2023 Bryce Market. All rights reserved.</p>
       </footer>
