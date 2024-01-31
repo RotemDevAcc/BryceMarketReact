@@ -19,7 +19,7 @@ function PasswordResetForm() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(PasswordReseted) return Message("Password reset already used, Wait for redirection.","error")
+        if (PasswordReseted) return Message("Password reset already used, Wait for redirection.", "error")
         try {
             const response = await axios.post(`${TargetServer}password_reset_confirm/`, {
                 userId,
@@ -27,8 +27,8 @@ function PasswordResetForm() {
                 newPassword
             });
             setMessage(response.data.message);
-            if(response.data.success){
-                Message("Password Reset Successful, redirecting you now.","info")
+            if (response.data.success) {
+                Message("Password Reset Successful, redirecting you now.", "info")
                 setPasswordReseted(true)
                 setTimeout(() => {
                     setPasswordReseted(false)
@@ -44,7 +44,7 @@ function PasswordResetForm() {
 
     return (
         <div className="container-fluid center-form">
-            {userId !== "" && token !== "" ? <div className="col-md-6 offset-md-3">
+            <div className="col-md-6 offset-md-3">
                 <h1 className="text-center">Reset Your Password</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -62,11 +62,7 @@ function PasswordResetForm() {
                 </form>
                 {message && <div className="alert alert-success mt-3">{message}</div>}
                 {error && <div className="alert alert-danger mt-3">{error}</div>}
-            </div> : <section className="container mt-4">
-                <h2>Password Reset</h2>
-                <p>if you see this an unknown problem has occured with resetting your password</p>
-                <button className='button btn-primary' style={{ borderRadius: "20px" }} onClick={() => goback()}>Click Here To Go Back</button>
-            </section>}
+            </div>
 
         </div>
     );
