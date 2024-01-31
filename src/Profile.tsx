@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from './app/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faCalendarAlt, faVenusMars, faIdCard, faMoon, faSun, faImage, faReceipt, faShoppingCart, faDollarSign, faBox } from '@fortawesome/free-solid-svg-icons';
 import { getDataAsync, selectproducts, selectstatus } from './components/supermarket/superSlice';
-
+import { useNavigate } from 'react-router-dom'
 
 const ModalTypes = {
     Clear: 0,
@@ -29,6 +29,8 @@ const Profile = () => {
     const [profileButtons, setProfileButtons] = useState<JSX.Element | string>('');
     const [recommendations, setrecommendations] = useState<string | JSX.Element>('');
     
+    const navigate = useNavigate()
+
     const dispatch = useAppDispatch();
     const myDetails = useAppSelector(get_user_details);
     const darkMode = useAppSelector(selectDarkMode);
@@ -87,6 +89,8 @@ const Profile = () => {
     useEffect(() => {
         if(islogged && isTokenExpired(token)){
           dispatch(user_force_logout());
+        }else if(!islogged){
+            navigate("/")
         }
       }, [islogged, token, dispatch])
 
