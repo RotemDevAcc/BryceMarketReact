@@ -12,7 +12,7 @@ function PasswordResetForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`${TargetServer}/password_reset_confirm/`, {
+      const response = await axios.post(`${TargetServer}password_reset_confirm/`, {
         userId,
         token,
         newPassword
