@@ -10,7 +10,7 @@ function PasswordResetRequestForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await axios.post(`${TargetServer}/password_reset/`, { email });
+            const response = await axios.post(`${TargetServer}password_reset/`, { email });
             setMessage(response.data.message);
         } catch (error) {
             console.error('There was an error!', error);
