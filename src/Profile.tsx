@@ -92,7 +92,7 @@ const Profile = () => {
         }else if(!islogged){
             navigate("/")
         }
-      }, [islogged, token, dispatch])
+      }, [islogged, token, dispatch, navigate])
 
     useEffect(() => {
         if (status === "done" && superproducts?.length > 0) {

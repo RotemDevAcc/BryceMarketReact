@@ -1,5 +1,5 @@
 # Use the official Node.js image as a parent image
-FROM node:16
+FROM node:17
 
 # Set environment variables for Node.js and React
 ENV NODE_ENV production
