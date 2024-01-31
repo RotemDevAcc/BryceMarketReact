@@ -18,6 +18,7 @@ function PasswordResetForm() {
         newPassword
       });
       setMessage(response.data.message);
+      console.log(response)
     } catch (err) {
       setError('Failed to reset password. Please try again.');
     }
