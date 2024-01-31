@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { get_login_status, is_user_logged, loginAsync, reset_loginstatus } from './loginSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Message } from '../../Message';
 
 
@@ -58,11 +60,16 @@ const Login = () => {
             <h1 className="text-center">Login</h1>
 
             <div className="form-group">
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="username">
+              <FontAwesomeIcon icon={faUser} />Username:
+              </label>
               <input type="text" onChange={(e) => setusername(e.target.value)} className="form-control" id="username" name="username" required />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
+              <label htmlFor="password">
+              <FontAwesomeIcon icon={faLock} /> Password:
+                
+                </label>
               <input type="password" onChange={(e) => setpassword(e.target.value)} className="form-control" id="password" name="password" required />
             </div>
 
