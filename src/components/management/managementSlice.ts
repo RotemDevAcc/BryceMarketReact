@@ -32,22 +32,22 @@ export interface CustomersDetails {
 
 export interface ReceiptDetails {
     id: number;
-    price:number;
-    products:AllProductDetails[];
+    price: number;
+    products: AllProductDetails[];
 }
 
 export interface ReceiverUser {
-    userid:number;
-    username:string;
+    userid: number;
+    username: string;
 }
 
 export interface AllReceiptDetails {
     id: number;
     orderid: string;
-    price:number;
-    discount:number;
-    products:AllProductDetails[];
-    recuser:ReceiverUser;
+    price: number;
+    discount: number;
+    products: AllProductDetails[];
+    recuser: ReceiverUser;
 }
 
 export interface ManagementINT {
@@ -250,7 +250,7 @@ export const managementSlice = createSlice({
 
             })
 
-            .addCase(removeAdminCategoryAsync.fulfilled, (state, action ) => {
+            .addCase(removeAdminCategoryAsync.fulfilled, (state, action) => {
                 const payload = action.payload
                 if (payload.success === false) {
                     Message(payload.message, "error")
@@ -258,10 +258,10 @@ export const managementSlice = createSlice({
                     return
                 }
                 const newCategory = payload.category;
-                if (newCategory) { 
-                    state.categories.splice(newCategory) 
-                    Message(payload.message,"success")
-                } 
+                if (newCategory) {
+                    state.categories.splice(newCategory)
+                    Message(payload.message, "success")
+                }
                 else {
                     Message("ERROR, we couldn't refresh the page.", "error")
                 }
@@ -334,7 +334,19 @@ export const managementSlice = createSlice({
                 if (payload) {
                     if (payload.success) {
                         Message(payload.message, "success")
-                    }else{
+                        if (payload.returncode) {
+                            navigator.clipboard.writeText(payload.returncode)
+                                .then(() => {
+                                    // Successfully copied to clipboard
+                                    Message('Code Copied to clipboard', "success");
+                                })
+                                .catch(err => {
+                                    // Handle any errors
+                                    Message("Code Couldn't be copied to clipboard.", "error");
+                                    console.error('Error copying to clipboard', err);
+                                });
+                        }
+                    } else {
                         Message(payload.message, "error")
                     }
                 }
@@ -362,7 +374,7 @@ export const managementSlice = createSlice({
                 }
             })
 
-            .addCase(editAdminStaffAsync.rejected, (state,action) => {
+            .addCase(editAdminStaffAsync.rejected, (state, action) => {
                 Message("Set Staff Failed", "error")
             })
             .addCase(AdminremoveUserAsync.fulfilled, (state, action) => {
@@ -384,11 +396,11 @@ export const managementSlice = createSlice({
                 }
             })
 
-            .addCase(AdminremoveUserAsync.rejected, (state,action) => {
+            .addCase(AdminremoveUserAsync.rejected, (state, action) => {
                 Message("Remove User Failed", "error")
             })
 
-            .addCase(AdmingetUserReceiptsAsync.fulfilled, (state,action) => {
+            .addCase(AdmingetUserReceiptsAsync.fulfilled, (state, action) => {
                 const payload = action.payload
                 if (payload.success === false) {
                     Message(payload.message, "error")
@@ -405,9 +417,9 @@ export const managementSlice = createSlice({
                 }
             })
 
-            .addCase(AdmingetAllReceiptsAsync.fulfilled, (state,action) => {
+            .addCase(AdmingetAllReceiptsAsync.fulfilled, (state, action) => {
                 const payload = action.payload
-                
+
                 if (payload.success === false) {
                     Message(payload.message, "error")
                     // state.status = 'failed'
@@ -416,9 +428,9 @@ export const managementSlice = createSlice({
                 if (payload.success === true) {
                     const receipts = payload.payload;
                     state.products = payload.products
-                    receipts.sort((a:any, b:any) => b.id - a.id);
+                    receipts.sort((a: any, b: any) => b.id - a.id);
                     state.allreceipts = receipts
-                    
+
                 } else {
                     Message(payload.message, "error")
                 }

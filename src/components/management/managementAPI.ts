@@ -139,7 +139,7 @@ export async function addAdminCoupon(details:{formData:FormData, token:string}) 
     })
     .catch(error => {
         console.error('Error while sending data to the server:', error);
-        Message(error.response.data.detail,"error")
+        Message(error.response.data.error,"error")
         throw error;
     });
 }

@@ -250,11 +250,12 @@ const Customers = () => {
             <Modal show={showmodal === Modals.createcoupon} onHide={() => setshowmodal(Modals.hide)}>
                 <Modal.Header>
                     <Modal.Title>
-                        New Product
+                        New Coupon
                     </Modal.Title>
 
                 </Modal.Header>
                 <Modal.Body>
+                    Once created the coupon code will be displayed in a message or your clipboard<span style={{color:"#55a1ff"}}> (CTRL+V)</span>
                     <form onSubmit={couponAddSubmit}>
                         <label htmlFor="newCouponDesc">Description:{" "}</label>
                         <input
