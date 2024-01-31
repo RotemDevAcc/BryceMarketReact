@@ -44,7 +44,7 @@ function PasswordResetForm() {
 
     return (
         <div className="container-fluid center-form">
-            {userId && token ? <div className="col-md-6 offset-md-3">
+            {userId !== "" && token !== "" ? <div className="col-md-6 offset-md-3">
                 <h1 className="text-center">Reset Your Password</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
