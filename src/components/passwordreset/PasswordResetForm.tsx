@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { TargetServer } from '../settings/settings';
 import { useNavigate } from 'react-router-dom'
+import { Message } from '../../Message';
 
 function PasswordResetForm() {
     const [newPassword, setNewPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const { userId, token } = useParams();
+    const [PasswordReseted, setPasswordReseted] = useState(false)
 
     const navigate = useNavigate()
     const goback = () => {
@@ -17,6 +19,7 @@ function PasswordResetForm() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if(PasswordReseted) return Message("Password reset already used, Wait for redirection.","error")
         try {
             const response = await axios.post(`${TargetServer}password_reset_confirm/`, {
                 userId,
@@ -24,6 +27,15 @@ function PasswordResetForm() {
                 newPassword
             });
             setMessage(response.data.message);
+            if(response.data.success){
+                Message("Password Reset Successful, redirecting you now.","info")
+                setPasswordReseted(true)
+                setTimeout(() => {
+                    setPasswordReseted(false)
+                    goback()
+                }, 1000);
+            }
+
             console.log(response)
         } catch (err) {
             setError('Failed to reset password. Please try again.');
