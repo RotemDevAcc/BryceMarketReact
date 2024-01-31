@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
-// export const TargetServer = "https://brycemarketserver.onrender.com/"
-export const TargetServer = "http://127.0.0.1:8000/"
+export const TargetServer = "https://brycemarketserver.onrender.com/"
+// export const TargetServer = "http://127.0.0.1:8000/"
 
 export function numberWithCommas(x:string | number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -19,13 +19,3 @@ export const isTokenExpired = (token: string) => {
     return true; // Treat as expired if decoding fails
   }
 };
-
-// Check if the token is expired
-// const isExpired = isTokenExpired(token);
-
-// if (isExpired) {
-  // Token is expired
-  // You can log the user out or take appropriate action
-  // For example: dispatch a logout action
-  // dispatch(logoutAction());
-// }
