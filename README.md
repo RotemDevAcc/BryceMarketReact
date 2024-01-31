@@ -42,11 +42,10 @@ Bryce Market uses Bootstrap to enhance the user interface, ensuring that your we
 2. 
     Install dependencies:
     ```bash
-    cd marketapp
     npm install
 3. 
     Set Your Server URL
-    navigate to marketapp\src\components\settings>
+    navigate to src\components\settings>
     Change TargetServer
     ```bash
     export const TargetServer = "http://127.0.0.1:8000/"
