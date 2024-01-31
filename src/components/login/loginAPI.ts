@@ -29,7 +29,7 @@ export async function getClientReceipts(details:{token:string}){
     if(!token || token === ""){
         return {data:{state:"error","message":"User not found, Relog and try Again."}}
     }
-    return axios.get(`${TargetServer}/profile/`,{
+    return axios.get(`${TargetServer}profile/`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
