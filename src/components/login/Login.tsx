@@ -61,7 +61,7 @@ const Login = () => {
 
             <div className="form-group">
               <label htmlFor="username">
-              <FontAwesomeIcon icon={faUser} />Username:
+              <FontAwesomeIcon icon={faUser} /> Username:
               </label>
               <input type="text" onChange={(e) => setusername(e.target.value)} className="form-control" id="username" name="username" required />
             </div>
