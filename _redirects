@@ -1,1 +1,1 @@
-/reset-password /GET
+/reset-password/*    /new-destination-url    301
