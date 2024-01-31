@@ -64,3 +64,4 @@ Bryce Market uses Bootstrap to enhance the user interface, ensuring that your we
     ```
 
     
+## Designed to work with https://github.com/RotemDevAcc/BryceMarketServer as a BackEnd
